@@ -106,9 +106,14 @@
   }
 }
 
-@media (min-width: 768px) {
+.bonus-result:empty {
+  display: none !important;
+}
 
+@media (min-width: 768px) {
   .calculate-bonus-section {
+    padding-top: 6rem;
+
     .calculate-bonus-container>.calculate-bonus-main-content {
       flex-direction: row;
 

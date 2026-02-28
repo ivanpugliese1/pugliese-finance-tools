@@ -1,3 +1,4 @@
+
 /*
  * CALCULADORA DE SUELDO NETO ARGENTINA
 
@@ -10,9 +11,8 @@
  * - Leer valores de los inputs, llamar al servicio y mostrar resultados en pantalla.
  */
 
-import {
-  calculateNetSalary
-} from '../services/netSalaryService.js';
+import { calculateNetSalary } from '../services/netSalaryService.js';
+import { formatAmount } from '../utils/formatAmount.js';
 
 // INICIALIZACIÓN
 /*
@@ -24,19 +24,6 @@ import {
   4. Configura los event listeners (enviar formularios y cambiar de pestaña).
 */
 
-// Clave para sessionStorage
-const STORAGE_KEY = 'netSalaryLastResult';
-
-// ✅ Guardar resultado en sessionStorage
-function saveResult(result) {
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(result));
-}
-
-// ✅ Recuperar resultado de sessionStorage
-function getSavedResult() {
-  const saved = sessionStorage.getItem(STORAGE_KEY);
-  return saved ? JSON.parse(saved) : null;
-}
 
 export function initNetSalaryCalculator(containerId) {
   const container = document.getElementById(containerId);
@@ -50,13 +37,6 @@ export function initNetSalaryCalculator(containerId) {
 
   setTimeout(() => {
     setupGrossToNetForm();
-
-    const savedResult = getSavedResult();
-
-    // ✅ Si había un resultado previo, restaurarlo automáticamente
-    if (savedResult) {
-      showGrossToNetResult(savedResult);
-    }
   }, 0);
 }
 
@@ -79,7 +59,7 @@ function generateGrossNet() {
             Ingresá tu Sueldo Bruto Mensual
           </label>
           <input
-            type="number"
+            type="text"
             id="gross-salary"
             name="gross-salary"
             placeholder="$ 500.000"
@@ -131,6 +111,7 @@ function generateGrossNet() {
 */
 function setupGrossToNetForm() {
   const form = document.getElementById('form-gross-to-net');
+  const grossInput = document.getElementById('gross-salary');
 
   // ✅ Validación adicional de seguridad
   if (!form) {
@@ -141,6 +122,10 @@ function setupGrossToNetForm() {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     processGrossToNetCalculation();
+  });
+
+  grossInput.addEventListener('input', (e) => {
+    formatAmount(e.target);
   });
 }
 
@@ -156,24 +141,23 @@ function setupGrossToNetForm() {
   4. Si todo va bien, pinta el resultado con showGrossToNetResult. Si el servicio lanza, muestra el mensaje de error.
 */
 function processGrossToNetCalculation() {
-  const grossSalary = parseFloat(document.getElementById('gross-salary').value);
+  const grossSalary = document.getElementById('gross-salary').value;
   const hasUnion = document.getElementById('has-union').checked;
   const dependents = parseInt(document.getElementById('dependents').value);
 
+  const cleanGrossSalary = parseFloat(grossSalary.replace(/\./g, '').replace(',', '.'));
 
-  if (!grossSalary || grossSalary <= 0) {
+  if (!cleanGrossSalary || cleanGrossSalary <= 0) {
     showError('result-gross-to-net', 'Por favor, ingresá un sueldo bruto válido mayor a cero');
     return;
   }
 
   try {
     const result = calculateNetSalary(
-      grossSalary,
+      cleanGrossSalary,
       hasUnion,
       dependents,
     );
-
-    saveResult(result);
 
     showGrossToNetResult(result);
   } catch (error) {

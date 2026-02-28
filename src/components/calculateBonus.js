@@ -1,56 +1,5 @@
 import { calculateBonus } from "../services/bonusService.js";
-
-// Storage key for sessionStorage
-const STORAGE_KEY = 'bonusLastResult';
-
-// ✅ Save result to sessionStorage
-function saveResult(result) {
-  console.log('🔍 Saving result:', result);
-  try {
-    const resultToSave = {
-      ...result,
-      startDate: result.entryDate?.toISOString(),
-      calculationDate: result.dateCalculation?.toISOString(),
-      semesterStart: result.startSemester?.toISOString(),
-      semesterEnd: result.endSemester?.toISOString(),
-      effectiveStartDate: result.effectiveStartDate?.toISOString()
-    };
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(resultToSave));
-    console.log('✅ Successfully saved to sessionStorage');
-  } catch (error) {
-    console.error('❌ Error saving result:', error);
-  }
-}
-
-// ✅ Retrieve result from sessionStorage
-function getSavedResult() {
-  console.log('🔍 Attempting to retrieve result...');
-  try {
-    const saved = sessionStorage.getItem(STORAGE_KEY);
-    console.log('📦 Retrieved data:', saved);
-
-    if (!saved) {
-      console.log('ℹ️ No saved result found');
-      return null;
-    }
-
-    const result = JSON.parse(saved);
-
-    // Convert strings back to Date objects
-    if (result.startDate) result.startDate = new Date(result.startDate);
-    if (result.calculationDate) result.calculationDate = new Date(result.calculationDate);
-    if (result.semesterStart) result.semesterStart = new Date(result.semesterStart);
-    if (result.semesterEnd) result.semesterEnd = new Date(result.semesterEnd);
-    if (result.effectiveStartDate) result.effectiveStartDate = new Date(result.effectiveStartDate);
-
-    console.log('✅ Result restored:', result);
-    return result;
-  } catch (error) {
-    console.error('❌ Error retrieving result:', error);
-    return null;
-  }
-}
-
+import { formatAmount } from "../utils/formatAmount.js";
 
 export function initializeBonusCalculator(containerId) {
   const container = document.getElementById(containerId);
@@ -80,7 +29,7 @@ export function initializeBonusCalculator(containerId) {
             Mejor sueldo bruto del semestre :
           </label>
           <input
-            type="number"
+            type="text"
             id="better-salary"
             name="better-salary"
             placeholder="$ 500.000"
@@ -130,20 +79,18 @@ export function initializeBonusCalculator(containerId) {
   `
   setTimeout(() => {
     bonusEvents();
-
-    // ✅ Restore previous result if exists
-    const savedResult = getSavedResult();
-    if (savedResult) {
-      showResultBonus(savedResult);
-    }
   }, 0);
 }
 
 
 function bonusEvents() {
   const form = document.getElementById('form-bonus');
+  const bonusAoumntInput = document.getElementById('better-salary');
 
-  // Envio del form
+  bonusAoumntInput.addEventListener('input', (e) => {
+    formatAmount(e.target);
+  });
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     calculateBonusFormData();
@@ -153,12 +100,14 @@ function bonusEvents() {
 
 function calculateBonusFormData() {
   // Obtengo los valores del formulario
-  const betterSalary = parseFloat(document.getElementById('better-salary').value);
+  const betterSalary = document.getElementById('better-salary').value;
   const entryDateStr = document.getElementById('entry-date').value;
   const calculationDateStr = document.getElementById('input-date').value;
 
+  const cleanBetterSalary = parseFloat(betterSalary.replace(/\./g, '').replace(',', '.'));
+
   // Validacion de inputs
-  if (!betterSalary || !entryDateStr || !calculationDateStr) {
+  if (!cleanBetterSalary || isNaN(cleanBetterSalary) || cleanBetterSalary <= 0 || !entryDateStr || !calculationDateStr) {
     bonusShowError('Debes completar todos los campos');
     return;
   }
@@ -171,9 +120,7 @@ function calculateBonusFormData() {
 
   // Calculamos el aguinaldo
   try {
-    const result = calculateBonus(betterSalary, entryDate, calculationDate);
-    // ✅ Guardar en sessionStorage
-    saveResult(result);
+    const result = calculateBonus(cleanBetterSalary, entryDate, calculationDate);
     showResultBonus(result);
   } catch (error) {
     bonusShowError(error.message);
@@ -260,11 +207,11 @@ function showResultBonus(result) {
   `;
 }
 
-function bonusShowError(mensaje) {
+function bonusShowError(message) {
   const divResult = document.getElementById('bonus-result');
   divResult.innerHTML = `
-    <div class="error-calculo animate-in">
-      <p>⚠️ ${mensaje}</p>
+    <div>
+      <p>⚠️ ${message}</p>
     </div>
   `;
 }

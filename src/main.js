@@ -1,5 +1,5 @@
-import { renderizarCotizaciones } from "./components/cotizacionDolar.js";
-import { renderizarConversor } from "./components/conversorMoneda.js";
+import { renderPrices } from "./components/dollarPrices.js";
+import { renderConversor } from "./components/currencyConverter.js";
 import { initializeBonusCalculator } from "./components/calculateBonus.js";
 import { initNetSalaryCalculator } from "./components/calculateNetSalary.js";
 
@@ -80,25 +80,23 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// ********************** RENDER DOLLAR PRICES ********************** //
+const pricesSection = document.getElementById('prices-section');
 
-
-// ********************** SECCION RENDERIZADO - PRECIO DOLAR ********************** //
-const seccionCotizaciones = document.querySelector('.seccion-cotizaciones');
-
-if (seccionCotizaciones) {
-  seccionCotizaciones.innerHTML = `
-    <article id="cotizaciones-container" class="cotizaciones-container width-page"></article>
+if (pricesSection) {
+  pricesSection.innerHTML = `
+    <article id="prices-section-container" class="prices-section-container width-page"></article>
   `;
-
-  // Inicializar componentes
-  renderizarConversor('formulario-conversion');
-
   setTimeout(() => {
-    renderizarCotizaciones('cotizaciones-container');
+    renderPrices('prices-section-container');
   }, 0);
 }
 
-// Inicializar calculadora de aguinaldo solo si existe el contenedor
+const conversionForm = document.getElementById('conversion-form');
+if (conversionForm) {
+  renderConversor('conversion-form');
+}
+
 const calculadoraBonus = document.getElementById('calculateBonus');
 if (calculadoraBonus) {
   initializeBonusCalculator('calculateBonus');

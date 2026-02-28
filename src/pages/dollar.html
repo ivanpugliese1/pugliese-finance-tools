@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sueldo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conversion y Dolar en tiempo real</title>
   <link rel="stylesheet" href="../styles/main.css">
-  <link rel="stylesheet" href="../styles/pages/sueldo.css">
+  <link rel="stylesheet" href="../styles/pages/dollar.css">
   <script type="module" src="../main.js" defer></script>
 </head>
 
@@ -31,9 +31,9 @@
     <nav>
       <ul>
         <li><a href="../../index.html">Inicio</a></li>
-        <li><a href="./dolar.html">Dolar</a></li>
-        <li><a href="./sueldo.html">Sueldo</a></li>
-        <li><a href="./aguinaldo.html">Aguinaldo</a></li>
+        <li><a href="./dollar.html">Dolar</a></li>
+        <li><a href="./salary.html">Sueldo</a></li>
+        <li><a href="./bonus.html">Aguinaldo</a></li>
       </ul>
     </nav>
 
@@ -81,59 +81,28 @@
   </header>
 
   <main>
-    <section class="net-salary-calculator-section">
-      <div class="width-page">
-        <div class="net-salary-calculator-main-content">
-          <div class="net-salary-calculator-title">
-            <h1>Calculadora de Sueldo Neto</h2>
-              <p>Calculá cuánto vas a cobrar en mano después de todos los descuentos obligatorios.
-                Incluye jubilación, obra social, PAMI, sindicato e Impuesto a las Ganancias.</p>
-              <img src="../images/calculator-salary.svg" alt="Imagen ilustrativa de calculadora de sueldo neto.">
-          </div>
-
-          <div id="net-salary-calculator-container" class="net-salary-calculator-container"></div>
+    <section class="welcome-conversion-dollar-section">
+      <div class="welcome-conversion-dollar-container width-page">
+        <div class="dollar-title">
+          <h1>Conversor de Monedas y Dólar en Argentina</h1>
+          <p>Consultá la cotización del dolar en tiempo real para calcular valores, comparar cotizaciones y tomar
+            mejores
+            decisiones. <strong>Una herramienta práctica, clara y actualizada</strong>, pensada para tu uso diario.</p>
+          <img src="../images/dollar-image.svg"
+            alt="Imágen de la sección de los tipos de dolares y conversión a modo de presentación unicamente.">
         </div>
-        <div id="result-gross-to-net" class="salary-result"></div>
+        <div class="conversion">
+          <form id="conversion-form" class="conversion-form"></form>
+        </div>
       </div>
     </section>
 
-    <section class="deductions-description-section">
-      <div class="width-page">
-        <h2>Deducciones</h2>
-        <article class="deductions-description-container">
-          <div>
-            <h3>Jubilación 👴👵</h3>
-            <p>Aporte obligatorio al sistema previsional (ANSES) que financia tu futura pensión cuando te retires.</p>
-          </div>
-          <div>
-            <h3>PAMI 👴 + 🏥</h3>
-            <p>Aporte destinado al Instituto Nacional de Servicios Sociales para Jubilados y Pensionados.</p>
-          </div>
-          <div>
-            <h3>Obra social 🩺</h3>
-            <p>Descuento obligatorio para financiar tu cobertura de salud mientras trabajás (consultas, estudios,
-              internaciones, etc.).</p>
-          </div>
-          <div>
-            <h3>Sindicato 👷‍♂️</h3>
-            <p>Aporte al gremio que representa a los trabajadores de tu actividad. Puede ser obligatorio según el
-              convenio colectivo.</p>
-          </div>
-          <div>
-            <h3>Impuesto a las ganancias 💰</h3>
-            <p>Se descuenta si tu salario supera el mínimo establecido por ley y se calcula según tus ingresos y
-              deducciones.</p>
-          </div>
-        </article>
-      </div>
-
-    </section>
+    <section id="prices-section" class="prices-section"></section>
   </main>
 
   <footer>
     <small>Desarrollado por @Ivan Pugliese</small>
   </footer>
-
 </body>
 
 </html>
