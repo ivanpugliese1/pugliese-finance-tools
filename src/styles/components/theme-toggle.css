@@ -3,10 +3,9 @@
   border: none;
   cursor: pointer;
   padding: 0.2rem;
-  color: var(--primary);
-  background-color: inherit;
+}
 
-  .dark-theme-icon {
-    display: none;
-  }
+.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-primary-dark);
 }

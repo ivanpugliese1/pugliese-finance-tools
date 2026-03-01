@@ -1,6 +1,6 @@
 .welcome-section {
   padding: 2rem 0;
-  background-color: #FAF8F5;
+  background-color: var(--background-secondary-light);
 
   >div {
     display: flex;
@@ -47,7 +47,7 @@
           font-family: inherit;
           font-weight: bold;
           font-size: 0.9rem;
-          color: #ffffff;
+          color: var(--text-primary-dark);
           background-color: var(--primary);
           border-radius: 0.5rem;
           border: none;

@@ -2,6 +2,7 @@ import { renderPrices } from "./components/dollarPrices.js";
 import { renderConversor } from "./components/currencyConverter.js";
 import { initializeBonusCalculator } from "./components/calculateBonus.js";
 import { initNetSalaryCalculator } from "./components/calculateNetSalary.js";
+import { darkTheme } from "./components/darkTheme.js";
 
 
 // ********************** MENU TOGGLE ********************** //
@@ -79,6 +80,10 @@ document.addEventListener("keydown", (e) => {
     toggleMenu();
   }
 });
+
+const themeBtn = document.getElementById("theme-toggle");
+darkTheme(themeBtn, "dark-mode");
+
 
 // ********************** RENDER DOLLAR PRICES ********************** //
 const pricesSection = document.getElementById('prices-section');
