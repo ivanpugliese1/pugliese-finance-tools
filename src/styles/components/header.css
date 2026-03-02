@@ -8,14 +8,14 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background-color: var(--background-light);
+  background-color: var(--background-header);
   border-bottom: 1px solid var(--primary);
 
   .header-logo {
     padding: 0 1rem;
     border-radius: 0.9rem;
     background-color: var(--primary);
-    color: var(--text-primary-dark);
+    color: var(--color-text-logo);
 
     a {
       display: flex;

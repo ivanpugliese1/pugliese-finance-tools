@@ -12,6 +12,7 @@
 
     h1 {
       margin-bottom: 0.5rem;
+      color: var(--color-text-title);
     }
 
     img {
@@ -39,7 +40,7 @@
 
         small {
           font-size: 0.85rem;
-          color: #555;
+          color: var(--text-muted);
         }
       }
 

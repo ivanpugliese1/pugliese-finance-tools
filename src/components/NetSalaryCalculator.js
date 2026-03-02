@@ -13,16 +13,7 @@
 
 import { calculateNetSalary } from '../services/netSalaryService.js';
 import { formatAmount } from '../utils/formatAmount.js';
-
-// INICIALIZACIÓN
-/*
-  Punto de entrada: inicializa la calculadora dentro del contenedor indicado.
-
-  1. Busca en el DOM el elemento con el ID recibido (ej. "net-salary-calculator").
-  2. Si no existe, escribe un error en consola y sale.
-  3. Genera todo el HTML de la calculadora (header, pestañas, formularios, info) y lo inyecta en el contenedor.
-  4. Configura los event listeners (enviar formularios y cambiar de pestaña).
-*/
+import { formatCurrency } from '../utils/formatCurrency.js';
 
 
 export function initNetSalaryCalculator(containerId) {
@@ -40,17 +31,6 @@ export function initNetSalaryCalculator(containerId) {
   }, 0);
 }
 
-
-/*
-  Contenido del sueldo bruto a neto.
-
-  Incluye:
-  - Input de sueldo bruto mensual.
-  - Checkbox de sindicato (marca si aplica el 2% adicional).
-  - Input de personas a cargo (afecta Ganancias).
-  - Acordeón con descuentos opcionales: embargos, préstamos, otros.
-  - Botón "Calcular Sueldo Neto" y contenedor donde se mostrará el resultado.
-*/
 function generateGrossNet() {
   return `
       <form id="form-gross-to-net" class="salary-form">
@@ -106,9 +86,7 @@ function generateGrossNet() {
   `;
 }
 
-/*
-  Asocia el formulario "Bruto → Neto" al envío: evita recarga y ejecuta el cálculo bruto→neto.
-*/
+
 function setupGrossToNetForm() {
   const form = document.getElementById('form-gross-to-net');
   const grossInput = document.getElementById('gross-salary');
@@ -129,17 +107,6 @@ function setupGrossToNetForm() {
   });
 }
 
-
-// PROCESAMIENTO DE CÁLCULOS
-/*
-  Flujo completo del cálculo Bruto → Neto.
- 
-  Pasos:
-  1. Lee del DOM: sueldo bruto, checkbox sindicato, personas a cargo.
-  2. Valida que el bruto sea mayor a cero; si no, muestra mensaje de error en el contenedor de resultado y sale.
-  3. Llama al servicio calculateNetSalary con esos datos.
-  4. Si todo va bien, pinta el resultado con showGrossToNetResult. Si el servicio lanza, muestra el mensaje de error.
-*/
 function processGrossToNetCalculation() {
   const grossSalary = document.getElementById('gross-salary').value;
   const hasUnion = document.getElementById('has-union').checked;
@@ -166,11 +133,6 @@ function processGrossToNetCalculation() {
 }
 
 
-// VISUALIZACIÓN DE RESULTADOS
-
-/*
-  Pinta en pantalla el resultado del cálculo Bruto → Neto.
-*/
 function showGrossToNetResult(result) {
   const resultContainer = document.getElementById('result-gross-to-net');
 
@@ -201,11 +163,7 @@ function showGrossToNetResult(result) {
   `;
 }
 
-/**
-  Arma el bloque HTML del desglose de descuentos obligatorios.
 
-  Lista cada ítem obligatorio (jubilación, PAMI, obra social, sindicato si aplica, Ganancias) con nombre, porcentaje y monto.
-*/
 function generateBreakdown(result) {
   const mandatory = result.mandatoryDeductions;
 
@@ -229,10 +187,6 @@ function generateBreakdown(result) {
   `;
 }
 
-/*
-  Genera una fila de la tabla de descuentos: nombre (ej. "Jubilación"), porcentaje y monto formateado.
-  Se usa tanto para descuentos obligatorios como para adicionales (en estos últimos el porcentaje puede ser "-").
-*/
 function generateDeductionRow(name, amount, percentage) {
   return `
     <div class="deduction-row">
@@ -243,9 +197,6 @@ function generateDeductionRow(name, amount, percentage) {
   `;
 }
 
-/*
-  Genera la fila (y opcionalmente el detalle) del Impuesto a las Ganancias.
-*/
 function generateIncomeTaxRow(result) {
   const incomeTax = result.mandatoryDeductions.incomeTax;
 
@@ -281,9 +232,6 @@ function generateIncomeTaxRow(result) {
   `;
 }
 
-/*
-  Erro cuando falla la validación (ej. bruto <= 0) o cuando el servicio lanza una excepción.
-*/
 function showError(containerId, message) {
   const container = document.getElementById(containerId);
   container.innerHTML = `
@@ -293,13 +241,3 @@ function showError(containerId, message) {
   `;
 }
 
-/*
-  Formatea un número como moneda argentina (separador de miles, 2 decimales).
-  Se usa en todos los montos mostrados en resultados.
-*/
-function formatCurrency(number) {
-  return number.toLocaleString('es-AR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  });
-}

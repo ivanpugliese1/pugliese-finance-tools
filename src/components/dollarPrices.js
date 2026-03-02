@@ -1,4 +1,5 @@
-import { getCurrentDollarPrice, calculatePercentageVariation, setPricesToLocalStorage, getPricesFromLocalStorage } from "../services/dollarApi.js";
+import { getCurrentDollarPrice, calculatePercentageVariation } from "../services/dollarApi.js";
+import { getPricesFromLocalStorage, setPricesToLocalStorage } from "../utils/storage.js";
 
 
 export async function renderPrices(containerId) {

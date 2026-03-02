@@ -1,8 +1,8 @@
-import { renderPrices } from "./components/dollarPrices.js";
-import { renderConversor } from "./components/currencyConverter.js";
-import { initializeBonusCalculator } from "./components/calculateBonus.js";
-import { initNetSalaryCalculator } from "./components/calculateNetSalary.js";
-import { darkTheme } from "./components/darkTheme.js";
+import { renderPrices } from "./components/DollarPrices.js";
+import { renderConversor } from "./components/CurrencyConverter.js";
+import { initializeBonusCalculator } from "./components/BonusCalculator.js";
+import { initNetSalaryCalculator } from "./components/NetSalaryCalculator.js";
+import { initDarkTheme } from "./utils/darkTheme.js";
 
 
 // ********************** MENU TOGGLE ********************** //
@@ -81,8 +81,8 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-const themeBtn = document.getElementById("theme-toggle");
-darkTheme(themeBtn, "dark-mode");
+
+initDarkTheme();
 
 
 // ********************** RENDER DOLLAR PRICES ********************** //

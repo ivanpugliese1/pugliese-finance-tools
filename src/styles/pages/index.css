@@ -15,6 +15,7 @@
 
       h1 {
         margin-bottom: 1rem;
+        color: var(--color-text-title);
       }
 
       img {
@@ -36,6 +37,10 @@
         padding-bottom: 1rem;
         border-bottom: 1px solid var(--primary);
 
+        h3 {
+          color: var(--color-text-title);
+        }
+
         a {
           display: inline-block;
           margin-top: 0.5rem;
@@ -47,7 +52,7 @@
           font-family: inherit;
           font-weight: bold;
           font-size: 0.9rem;
-          color: var(--text-primary-dark);
+          color: var(--color-text-button);
           background-color: var(--primary);
           border-radius: 0.5rem;
           border: none;
