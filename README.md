@@ -2,7 +2,7 @@
 
 Aplicación web de herramientas básicas financieras en Argentina.
 
-🌐 **Demo en vivo:** [https://ivanpugliese1.github.io/app-pugliese-finanzas/](https://ivanpugliese1.github.io/pugliese-finance-tools/)
+🌐 **Demo en vivo:** [https://ivanpugliese1.github.io/pugliese-finance-tools/](https://ivanpugliese1.github.io/pugliese-finance-tools/)
 
 ---
 
