@@ -5,7 +5,6 @@ import { getPricesFromLocalStorage, setPricesToLocalStorage } from "../utils/sto
 export async function renderPrices(containerId) {
   const container = document.getElementById(containerId);
 
-  // Si no encuentra el contenedor, salimos de la función.
   if (!container) {
     console.error(`Container ${containerId} no encontrado`);
     return;
@@ -63,7 +62,6 @@ function dollarCardHtml(price) {
     ? "CCL"
     : price.nombre;
 
-  // Función interna para generar el HTML de la variación (subida/bajada)
   const variationHtml = (variation) => {
     if (!variation) return '';
     const style = variation.type === 'ascent' ? 'positive-variation' : 'negative-variation';

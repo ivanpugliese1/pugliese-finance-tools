@@ -5,13 +5,10 @@ import { formatDate } from "../utils/formatDate.js";
 export function initializeBonusCalculator(containerId) {
   const container = document.getElementById(containerId);
 
-  // Obtengo la fecha actual en año y mes
   const today = new Date();
   const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
 
-
-  // Determino la fecha de calculo.
   let calculationDate;
   if (currentMonth < 6) {
     calculationDate = new Date(currentYear, 5, 30);
@@ -20,7 +17,6 @@ export function initializeBonusCalculator(containerId) {
   }
 
 
-  // Ahora, convierto las fechas a formato YYYY-MM-DD para los inputs tipo "date"
   const inputDate = (date) => date.toISOString().split('T')[0];
 
   container.innerHTML = `
@@ -100,14 +96,12 @@ function bonusEvents() {
 
 
 function calculateBonusFormData() {
-  // Obtengo los valores del formulario
   const betterSalary = document.getElementById('better-salary').value;
   const entryDateStr = document.getElementById('entry-date').value;
   const calculationDateStr = document.getElementById('input-date').value;
 
   const cleanBetterSalary = parseFloat(betterSalary.replace(/\./g, '').replace(',', '.'));
 
-  // Validacion de inputs
   if (!cleanBetterSalary || isNaN(cleanBetterSalary) || cleanBetterSalary <= 0 || !entryDateStr || !calculationDateStr) {
     bonusShowError('Debes completar todos los campos');
     return;
@@ -119,7 +113,6 @@ function calculateBonusFormData() {
   const entryDate = new Date(entryYear, entryMonth - 1, entryDay);
   const calculationDate = new Date(calcYear, calcMonth - 1, calcDay);
 
-  // Calculamos el aguinaldo
   try {
     const result = calculateBonus(cleanBetterSalary, entryDate, calculationDate);
     showResultBonus(result);

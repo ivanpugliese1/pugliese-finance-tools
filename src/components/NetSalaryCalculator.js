@@ -1,15 +1,4 @@
 
-/*
- * CALCULADORA DE SUELDO NETO ARGENTINA
-
- * 1. Bruto → Neto: ingresás tu sueldo bruto y ves cuánto cobrás en mano.
-
- *
- * La lógica de cálculo vive en netSalaryService.js; este archivo solo se encarga de:
- * - Generar el HTML de la calculadora (formularios, pestañas, sección informativa).
- * - Configurar eventos (submit de formularios, clic en pestañas).
- * - Leer valores de los inputs, llamar al servicio y mostrar resultados en pantalla.
- */
 
 import { calculateNetSalary } from '../services/netSalaryService.js';
 import { formatAmount } from '../utils/formatAmount.js';
@@ -91,7 +80,6 @@ function setupGrossToNetForm() {
   const form = document.getElementById('form-gross-to-net');
   const grossInput = document.getElementById('gross-salary');
 
-  // ✅ Validación adicional de seguridad
   if (!form) {
     console.error('Formulario no encontrado');
     return;

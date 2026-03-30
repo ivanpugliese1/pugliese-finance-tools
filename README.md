@@ -2,7 +2,7 @@
 
 Aplicación web de herramientas básicas financieras en Argentina.
 
-🌐 **Demo en vivo:** [https://ivanpugliese1.github.io/app-pugliese-finanzas/](https://ivanpugliese1.github.io/app-pugliese-finanzas/)
+🌐 **Demo en vivo:** [https://ivanpugliese1.github.io/app-pugliese-finanzas/](https://ivanpugliese1.github.io/pugliese-finance-tools/)
 
 ---
 
@@ -42,7 +42,7 @@ npm run deploy
 
 Esto ejecuta `vite build` y luego publica el resultado en la rama `gh-pages` automáticamente.
 
-> ⚙️ El archivo `vite.config.js` tiene configurado `base: '/app-pugliese-finanzas/'` necesario para que las rutas funcionen correctamente en GitHub Pages.
+> ⚙️ El archivo `vite.config.js` tiene configurado `base: '/pugliese-finance-tools/'` necesario para que las rutas funcionen correctamente en GitHub Pages.
 
 ---
 

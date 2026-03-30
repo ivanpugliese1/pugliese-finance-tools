@@ -22,7 +22,6 @@
     }
   }
 
-  /*Formulario de conversión*/
   .conversion {
     margin-bottom: 2rem;
 
@@ -309,7 +308,6 @@
   }
 }
 
-/*Animaciones*/
 @keyframes pulse {
 
   0%,
@@ -324,9 +322,6 @@
   }
 }
 
-
-
-/*Tablet y Desktop*/
 @media (min-width: 768px) {
   .welcome-conversion-dollar-section {
     display: flex;

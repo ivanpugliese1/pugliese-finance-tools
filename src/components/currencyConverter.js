@@ -1,7 +1,6 @@
 import { getCurrentDollarPrice, pesoToDollarConversion, dollarToPesoConversion } from "../services/dollarApi.js";
 import { formatAmount } from "../utils/formatAmount.js";
 
-// Generamos esta variable global para almacenar en memoria los datos que nos brinda la API y no tener que hacer múltiples llamadas cada vez que el usuario interactúa con el conversor.
 let pricesInCache = [];
 
 export async function renderConversor(containerId) {
@@ -82,7 +81,6 @@ export async function renderConversor(containerId) {
     const originCurrency = document.getElementById('origin-currency');
     const destinationCurrency = document.getElementById('destination-currency');
 
-    // Para el custom-select y hacerlo mas agradable visualmente.
     const customSelect = document.getElementById('custom-select');
     const selectedDisplay = customSelect.querySelector('.select-selected');
     const itemsContainer = customSelect.querySelector('.select-items');
@@ -95,7 +93,6 @@ export async function renderConversor(containerId) {
       itemsContainer.classList.toggle('select-hide');
     }
 
-    // Creamos el evento para mostrar y desaparecer al hacer clic en el "input"
     selectedDisplay.addEventListener('click', () => {
       itemsContainer.classList.toggle('select-hide');
     });
@@ -106,7 +103,6 @@ export async function renderConversor(containerId) {
       toggleSelect();
     }, { passive: false });
 
-    // Al elegir una opción visual
     itemsContainer.querySelectorAll('div').forEach(item => {
 
       function selectOption(e) {

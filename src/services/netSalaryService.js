@@ -15,18 +15,6 @@ const INCOME_TAX_THRESHOLD = 2800000;
 const DEDUCTION_PER_DEPENDENT = 280000;
 
 
-/**
- * Escalas del Impuesto a las Ganancias (4ta categoría). Valores estimados para 2026.
- *
- * Cada tramo define:
- * - from: límite inferior del tramo (en pesos).
- * - to: límite superior del tramo.
- * - rate: alícuota aplicable (ej. 0.05 = 5%).
- * - deduction: monto fijo que se resta en la fórmula para que el impuesto sea progresivo.
- *
- * Fórmula por tramo: Impuesto = (sueldo imponible × rate) - deduction
- * El sueldo imponible puede reducirse por deducción por personas a cargo.
- */
 const INCOME_TAX_BRACKETS = [
   { from: 0, to: 2800000, rate: 0, deduction: 0 },
   { from: 2800000, to: 4200000, rate: 0.05, deduction: 140000 },
@@ -37,18 +25,6 @@ const INCOME_TAX_BRACKETS = [
 ];
 
 
-// FUNCIÓN PRINCIPAL: BRUTO → NETO
-/*
-  Calcula el sueldo neto a partir del sueldo bruto mensual.
-
-  1. Valida que el bruto sea mayor a cero y que las personas a cargo no sean negativas.
-  2. Calcula cada descuento obligatorio (jubilación, PAMI, obra social, sindicato) como porcentaje del bruto.
-  3. Calcula el Impuesto a las Ganancias según escalas (con deducción por personas a cargo).
-  4. Suma los descuentos adicionales opcionales (embargos, préstamos, otros).
-  5. Obtiene el total de descuentos y el neto (bruto - total descuentos).
-  6. Calcula porcentajes (qué % del bruto son descuentos y qué % es neto).
-  7. Devuelve un objeto con todo el detalle para mostrar en pantalla.
-*/
 export function calculateNetSalary(grossSalary, hasUnion = true, dependentsCount = 0) {
 
   // Valido los ingresos
@@ -105,16 +81,6 @@ export function calculateNetSalary(grossSalary, hasUnion = true, dependentsCount
   };
 }
 
-// IMPUESTO A LAS GANANCIAS
-/*
- Calcula el monto del Impuesto a las Ganancias a descontar.
-
-  1. Se deduce del bruto un monto por cada persona a cargo ($280.000 por carga, valor estimado).
-  2. Eso da el "sueldo imponible". Si es <= mínimo no imponible, no se paga Ganancias (devolvemos 0).
-  3. Se busca en qué tramo de la tabla cae el sueldo imponible.
-  4. Se aplica la fórmula: (sueldo imponible × alícuota del tramo) - deducción del tramo.
-  5. Se devuelve el mayor entre ese resultado y 0 (nunca impuesto negativo).
-*/
 function calculateIncomeTax(grossSalary, dependentsCount) {
   const dependentsDeduction = dependentsCount * DEDUCTION_PER_DEPENDENT;
   const taxableSalary = Math.max(0, grossSalary - dependentsDeduction);
@@ -135,12 +101,6 @@ function calculateIncomeTax(grossSalary, dependentsCount) {
   return Math.max(0, tax);
 }
 
-/*
-  Genera el detalle del cálculo de Ganancias para mostrarlo al usuario
-  (sueldo imponible, deducción por cargas, tramo aplicado y alícuota).
-  Se usa cuando el usuario paga Ganancias (monto > 0) para mostrar en pantalla
-  en qué tramo quedó y cuál fue la base imponible.
-*/
 function calculateIncomeTaxDetail(grossSalary, dependentsCount) {
   const dependentsDeduction = dependentsCount * DEDUCTION_PER_DEPENDENT;
   const taxableSalary = Math.max(0, grossSalary - dependentsDeduction);

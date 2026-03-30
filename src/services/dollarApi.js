@@ -5,12 +5,10 @@ export async function getCurrentDollarPrice() {
   try {
     const response = await fetch(API);
 
-    // Si hay un error de conexion, validamos el estado de la respuesta.
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
     }
 
-    // Transformarmos la respuesta a formato JSON
     const data = await response.json();
     return data;
   }
